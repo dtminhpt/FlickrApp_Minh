@@ -70,12 +70,19 @@ export default class Movie extends Component {
         );
     }
 
+    _onEndReached = () => {
+        alert("Ahah, onEndReached fired !!!")
+    }
+
     render() {
         return(
             <View style={styles.container}>
                 <ListView
+                    enableEmptySectio = {true}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderMovieCell.bind(this)}
+                    renderFooter={this.renderFooter}
+                    onEndReached={this._onEndReached}
                 />
             </View>
         );
