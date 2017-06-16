@@ -3,31 +3,46 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+'use strict'
 
 import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View, 
+  NavigatorIOS
 } from 'react-native';
 
 import Movies from "./Apps/movies.js";
 
+class MoviesListView extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Movies />
+      </View>
+    );
+  }
+}
 export default class FlickrApp extends Component {
   render() {
     return (
-      <Movies />
+      <NavigatorIOS
+          initialRoute={{
+            component: MoviesListView,
+            title: 'Flickr',
+            component: Movies
+          }}
+          style={{flex: 1}}
+        /> 
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    flex: 1
   },
   welcome: {
     fontSize: 20,

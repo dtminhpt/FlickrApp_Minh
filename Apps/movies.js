@@ -1,3 +1,5 @@
+'use strict'
+
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -5,27 +7,20 @@ import {
   Text,
   View, 
   ListView, 
-  Image
+  Image, 
+  TouchableHighlight, 
 } from 'react-native';
 
-export default class Movie extends Component {
-    constructor() {
-        super();
-        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-            dataSource: ds.cloneWithRows([]),
-        };
-    }
+var MovieDetailView = require('./MovieDetailView');
 
-    render() {
-        return(
-            <View style={styles.container}>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderRow={this.renderMovieCell}
-                />
-            </View>
-        )
+export default class Movie extends Component {
+    constructor(props) {
+        super(props);
+        var ds = new ListView.DataSource(
+            {rowHasChanged: (r1, r2) => r1.id !== r2.id});
+        this.state = {
+            dataSource: ds.cloneWithRows([])
+        };
     }
 
     componentDidMount() {
@@ -46,19 +41,44 @@ export default class Movie extends Component {
         });
     }
 
+    _rowPressed(movie){
+        this.props.navigator.push({
+            title: "Property",
+            component: MovieDetailView,
+            passProps: {movie: movie}
+        })
+    }
+
     renderMovieCell(rowData){
+        if (!rowData) return;
+
         return(
-            <View style={{ flexDirection: 'row', backgroundColor: 'orange'}}>
-                <View style={{margin: 10, flex: 3}}>
-                   <Image source={{uri: 'https://image.tmdb.org/t/p/w342' + rowData.poster_path}}
-                          style={{height: 150}} />
+            <TouchableHighlight
+                    onPress={() => this._rowPressed(rowData)}
+                    underlayColor='#dddddd'>
+                <View style={{ flexDirection: 'row', backgroundColor: 'orange'}}>
+                    <View style={{margin: 10, flex: 3}}>
+                    <Image source={{uri: 'https://image.tmdb.org/t/p/w342' + rowData.poster_path}}
+                            style={{height: 150}} />
+                    </View>
+                    <View style={{flex: 7}}>
+                        <Text>{rowData.title}</Text>
+                        <Text numberOfLines={3}>{rowData.overview}</Text>
+                    </View>
                 </View>
-                <View style={{flex: 7}}>
-                    <Text>{rowData.title}</Text>
-                    <Text numberOfLines={3}>{rowData.overview}</Text>
-                </View>
+            </TouchableHighlight>
+        );
+    }
+
+    render() {
+        return(
+            <View style={styles.container}>
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={this.renderMovieCell.bind(this)}
+                />
             </View>
-        )
+        );
     }
 }
 
