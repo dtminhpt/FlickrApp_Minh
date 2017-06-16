@@ -12,12 +12,12 @@ import {
   View
 } from 'react-native';
 
+import Movies from "./Apps/movies.js";
+
 export default class FlickrApp extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Minh</Text>
-      </View>
+      <Movies />
     );
   }
 }
