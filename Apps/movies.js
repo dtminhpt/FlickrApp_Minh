@@ -45,7 +45,8 @@ export default class Movie extends Component {
         this.props.navigator.push({
             title: "Property",
             component: MovieDetailView,
-            passProps: {movie: movie}
+            passProps: {movie: movie},
+            barTintColor: 'orange'
         })
     }
 

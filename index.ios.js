@@ -22,7 +22,8 @@ export default class FlickrApp extends Component {
       <NavigatorIOS
           initialRoute={{
             title: 'Flickr',
-            component: Movies
+            component: Movies, 
+            barTintColor: 'orange'
           }}
           style={{flex: 1}}
         /> 
