@@ -16,21 +16,11 @@ import {
 
 import Movies from "./Apps/movies.js";
 
-class MoviesListView extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Movies />
-      </View>
-    );
-  }
-}
 export default class FlickrApp extends Component {
   render() {
     return (
       <NavigatorIOS
           initialRoute={{
-            component: MoviesListView,
             title: 'Flickr',
             component: Movies
           }}
