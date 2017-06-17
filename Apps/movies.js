@@ -9,6 +9,8 @@ import {
   ListView, 
   Image, 
   TouchableHighlight, 
+  StatusBar, 
+  RefreshControl
 } from 'react-native';
 
 var MovieDetailView = require('./MovieDetailView');
@@ -83,15 +85,28 @@ export default class Movie extends Component {
         )
     }
 
+    _onRefresh() {
+        this.getMoviesFromApiAsync();
+    }
+
     render() {
         return(
             <View style={styles.container}>
+                <StatusBar
+                    backgroundColor="red"
+                />
                 <ListView
                     enableEmptySectio = {true}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderMovieCell.bind(this)}
                     renderFooter={this.renderFooter}
                     onEndReached={this._onEndReached}
+                    RefreshControl={
+                        <RefreshControl
+                            refreshing={false}
+                            onRefreah={() => this._onRefresh.bind(this)}
+                        />
+                    }
                 />
             </View>
         );
