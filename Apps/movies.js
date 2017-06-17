@@ -75,6 +75,14 @@ export default class Movie extends Component {
         alert("Ahah, onEndReached fired !!!")
     }
 
+    renderFooter(){
+        return(
+            <View>
+                <Text>End...</Text>
+            </View>
+        )
+    }
+
     render() {
         return(
             <View style={styles.container}>
