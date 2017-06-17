@@ -91,7 +91,7 @@ var styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold', 
     margin: 5,
-    color: 'white', 
+    color: 'black', 
     textAlign: 'center'
   },
   description: {
