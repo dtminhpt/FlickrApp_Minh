@@ -8,22 +8,28 @@ import {
   View, 
   ListView, 
   Image, 
-  TouchableHighlight
+  TouchableHighlight, 
+  TouchableOpacity
 } from 'react-native';
 
 class MovieDetailView extends Component {
+  clickToOpen(){
+      alert("Xin chao!!!");
+  }
   render() {
     var movie = this.props.movie;
 
     return (
         <View style={styles.container}>
-            <Image style={styles.image}
-                   source={{uri: 'https://image.tmdb.org/t/p/w342' + movie.poster_path}}
-            />
-            <View>
-                <Text style={styles.title}>{movie.title}</Text>
-                <Text style={styles.description}>{movie.overview}</Text>
-            </View>
+            <Image style={styles.backgroundImage}
+                   source={{uri: 'https://image.tmdb.org/t/p/w342' + movie.poster_path}}>
+                   <TouchableOpacity onPress={() => this.clickToOpen()}>
+                       <View>
+                                <Text style={styles.title}>{movie.title}</Text>
+                                <Text style={styles.description}>{movie.overview}</Text>
+                        </View>
+                   </TouchableOpacity>
+            </Image>
         </View>
     );
   }
@@ -32,24 +38,31 @@ class MovieDetailView extends Component {
 var styles = StyleSheet.create({
   container: {
     marginTop: 65,
-    backgroundColor: "orange",
-    flex: 1
+    backgroundColor: 'transparent',
+    flex: 1, 
+    alignItems: 'center'
   },
   image: {
     width: 400,
-    height: 300
+    height: 500
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold', 
     margin: 5,
-    color: '#656565'
+    color: 'white', 
+    textAlign: 'center'
   },
   description: {
     fontSize: 18,
     margin: 5,
-    color: '#656565'
-  }
+    color: 'white', 
+    textAlign: 'center'
+  }, 
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch'
+  }, 
 });
 
 module.exports = MovieDetailView;
