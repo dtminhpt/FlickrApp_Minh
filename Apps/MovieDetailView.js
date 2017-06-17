@@ -60,7 +60,6 @@ class MovieDetailView extends Component {
                    <View style={[styles.containerText]}>
                         <ScrollView
                         style={{}}>
-                            <Text numberOfLines={1}  style={styles.title}>{movie.title}</Text>
                             <TouchableOpacity onPress={() => this.clickToOpen()}>
                                 <View style={styles.page}>
                                     <Text numberOfLines={line} 

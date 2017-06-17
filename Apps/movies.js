@@ -43,7 +43,7 @@ export default class Movie extends Component {
 
     _rowPressed(movie){
         this.props.navigator.push({
-            title: "Property",
+            title: movie.title,
             component: MovieDetailView,
             passProps: {movie: movie},
             barTintColor: 'orange'
