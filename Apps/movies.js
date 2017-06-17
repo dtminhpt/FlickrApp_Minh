@@ -63,8 +63,8 @@ export default class Movie extends Component {
                             style={{height: 150}} />
                     </View>
                     <View style={{flex: 7}}>
-                        <Text>{rowData.title}</Text>
-                        <Text numberOfLines={3}>{rowData.overview}</Text>
+                        <Text style={styles.title}>{rowData.title}</Text>
+                        <Text style={styles.description} numberOfLines={3}>{rowData.overview}</Text>
                     </View>
                 </View>
             </TouchableHighlight>
@@ -91,5 +91,13 @@ export default class Movie extends Component {
 }
 
 var styles = StyleSheet.create({
-    
+    title: {
+    fontWeight: 'bold', 
+    fontSize: 17,
+    margin: 5,
+  },
+  description: {
+    margin: 5,
+    textAlign: 'left'
+  }, 
 })
