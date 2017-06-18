@@ -99,10 +99,10 @@ export default class Movie extends Component {
         return(
         <View>
             <TextInput
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                style={styles.inputSearch}
                 onChangeText={(searchText) => this.searchMovie(searchText)}
                 value={this.state.searchText}
-                placeholder="Enter text to search"
+                placeholder="Search..."
             />
         </View>
         )
@@ -173,4 +173,12 @@ var styles = StyleSheet.create({
     margin: 5,
     textAlign: 'left'
   }, 
+  inputSearch:{
+      height: 30, 
+      flex: 1, 
+      paddingHorizontal: 8, 
+      fontSize: 15, 
+      backgroundColor: '#FFFFFF', 
+      borderRadius: 2
+  }
 })
