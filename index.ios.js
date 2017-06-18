@@ -11,22 +11,22 @@ import {
   StyleSheet,
   Text,
   View, 
-  NavigatorIOS
+  TabBarIOS
 } from 'react-native';
 
-import Movies from "./Apps/movies.js";
+import StarterTabBarIOS from "./Apps/TabBarIOS1.js";
 
 export default class FlickrApp extends Component {
+   constructor() {
+    super();  
+    this.state = {
+      selectedTab: 'homeTab',
+    };
+  }
+
   render() {
     return (
-      <NavigatorIOS
-          initialRoute={{
-            title: 'Flickr',
-            component: Movies, 
-            barTintColor: 'orange'
-          }}
-          style={{flex: 1}}
-        /> 
+      <StarterTabBarIOS/>
     );
   }
 }
