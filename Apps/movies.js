@@ -120,6 +120,10 @@ export default class Movie extends Component {
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(rows)
         });
+
+        if (text === '') {
+            this.getMoviesFromApiAsync();
+        }
     }
 
     render() {
