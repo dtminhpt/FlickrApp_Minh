@@ -41,7 +41,9 @@ export default class Movie extends Component {
             })
         })
         .catch((error) => {
-            console.error(error);
+            //console.error(error);
+            console.log('There has been a problem with your fetch operation: ' + error.message);
+            throw error;
         });
     }
 
