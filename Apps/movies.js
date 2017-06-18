@@ -10,7 +10,8 @@ import {
   Image, 
   TouchableHighlight, 
   StatusBar, 
-  RefreshControl
+  RefreshControl, 
+  TextInput
 } from 'react-native';
 
 var MovieDetailView = require('./MovieDetailView');
@@ -21,7 +22,8 @@ export default class Movie extends Component {
         var ds = new ListView.DataSource(
             {rowHasChanged: (r1, r2) => r1.id !== r2.id});
         this.state = {
-            dataSource: ds.cloneWithRows([])
+            dataSource: ds.cloneWithRows([]), 
+            searchText: ''
         };
     }
 
@@ -89,6 +91,37 @@ export default class Movie extends Component {
         this.getMoviesFromApiAsync();
     }
 
+    renderHeader(){
+        return(
+        <View>
+            <TextInput
+                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                onChangeText={(searchText) => this.searchMovie(searchText)}
+                value={this.state.searchText}
+            />
+        </View>
+        )
+    }
+
+    searchMovie(text){
+        this.setState({
+            searchText : text,
+        })
+
+        var rows = [];
+        for (var i=0; i < this.state.dataSource._dataBlob.s1.length; i++) {
+            var title = this.state.dataSource._dataBlob.s1[i].title.toLowerCase();
+            var desc = this.state.dataSource._dataBlob.s1[i].overview.toLowerCase();
+            if(title.search(text.toLowerCase()) !== -1 || desc.search(text.toLowerCase()) !== -1){
+                rows.push(this.state.dataSource._dataBlob.s1[i]);
+            }
+        }
+
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(rows)
+        });
+    }
+
     render() {
         return(
             <View style={styles.container}>
@@ -96,6 +129,7 @@ export default class Movie extends Component {
                     backgroundColor="red"
                 />
                 <ListView
+                    renderHeader={this.renderHeader.bind(this)}
                     enableEmptySectio = {true}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderMovieCell.bind(this)}
@@ -114,7 +148,7 @@ export default class Movie extends Component {
 }
 
 var styles = StyleSheet.create({
-    title: {
+  title: {
     fontWeight: 'bold', 
     fontSize: 17,
     margin: 5,
