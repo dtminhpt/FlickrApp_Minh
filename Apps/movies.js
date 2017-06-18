@@ -76,7 +76,9 @@ export default class Movie extends Component {
     }
 
     _onEndReached = () => {
-        alert("Ahah, onEndReached fired !!!")
+        if (this.state.dataSource.length >= 1){
+            alert("Ahah, onEndReached fired !!!")
+        } 
     }
 
     renderFooter(){
@@ -98,6 +100,7 @@ export default class Movie extends Component {
                 style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                 onChangeText={(searchText) => this.searchMovie(searchText)}
                 value={this.state.searchText}
+                placeholder="Enter text to search"
             />
         </View>
         )
@@ -123,6 +126,13 @@ export default class Movie extends Component {
 
         if (text === '') {
             this.getMoviesFromApiAsync();
+        }
+
+        if (rows.length === 0) {
+            alert('No results');
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(['No results'])
+            });
         }
     }
 
