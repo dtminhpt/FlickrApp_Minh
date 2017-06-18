@@ -19,7 +19,7 @@ export default class StarterTabBarIOS extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {selectedTab: 'tabFavorites'};
+    this.state = {selectedTab: 'tabNowPlaying'};
   }
 
   setTab(tabId) {
@@ -31,49 +31,62 @@ export default class StarterTabBarIOS extends React.Component {
       <TabBarIOS>
         <TabBarIOS.Item
           systemIcon="recents"
-          selected={this.state.selectedTab === 'tabDownloads'}
-          onPress={() => this.setTab('tabDownloads')}>
+          selected={this.state.selectedTab === 'tabNowPlaying'}
+          onPress={() => this.setTab('tabNowPlaying')}>
           
-          <NavigatorIOS
-            initialRoute={{
-              title: 'Flickr',
-              component: Movies, 
-              barTintColor: 'orange'
-            }}
-            style={{flex: 1}}
-          /> 
+          <TabNowPlaying/>
         </TabBarIOS.Item>
 
         <TabBarIOS.Item
           systemIcon="top-rated"
-          selected={this.state.selectedTab === 'tabFavorites'}
-          onPress={() => this.setTab('tabFavorites')}>
+          selected={this.state.selectedTab === 'tabTopRated'}
+          onPress={() => this.setTab('tabTopRated')}>
 
-          <NavigatorIOS
-            initialRoute={{
-              title: 'Flickr',
-              component: Movies, 
-              barTintColor: 'orange'
-            }}
-            style={{flex: 1}}
-          /> 
-
+          <TabTopRated/>
         </TabBarIOS.Item>
       </TabBarIOS>
     );
   }
+}
 
+/**
+ * Now Playing Tab
+ */
+class TabNowPlaying extends React.Component {
+  render() {
+    return (
+      <NavigatorIOS
+          initialRoute={{
+            title: 'Flickr',
+            component: Movies, 
+            barTintColor: 'orange'
+          }}
+          style={{flex: 1}}
+        /> 
+    );
+  }
+}
+
+/**
+ * Top Rated Tab
+ */
+class TabTopRated extends React.Component {
+  render() {
+    return (
+      <NavigatorIOS
+          initialRoute={{
+            title: 'Flickr',
+            component: Movies, 
+            barTintColor: 'orange'
+          }}
+          style={{flex: 1}}
+        /> 
+    );
+  }
 }
 
 var styles = StyleSheet.create({
-  tabContent: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  tabText: {
-    margin: 50,
-    fontSize: 40
-  }
+  
 });
 
 AppRegistry.registerComponent('StarterTabBarIOS', () => StarterTabBarIOS);
