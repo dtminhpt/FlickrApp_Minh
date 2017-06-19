@@ -42,7 +42,6 @@ Describe any challenges encountered while building the app.
 - Something weird when "no results" when searching.
 - Styling for the animations is still not good.
 - The Movie Database API for "Now Playing" and "Top Rated" are not available.
-- Don't know how to turn off the yellow warning.
 - Don't know how to customize item's icon in the tabbarios.
 - Don't know how to change from listview to gridview, image process, load large poster. (Please help!!!)
 

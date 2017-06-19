@@ -152,7 +152,7 @@ export default class Movie extends Component {
                 />
                 <ListView
                     renderHeader={this.renderHeader.bind(this)}
-                    enableEmptySectio = {true}
+                    enableEmptySections = {true}
                     dataSource={this.state.dataSource}
                     renderRow={this.renderMovieCell.bind(this)}
                     renderFooter={this.renderFooter}
