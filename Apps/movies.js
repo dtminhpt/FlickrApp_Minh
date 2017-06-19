@@ -23,7 +23,8 @@ export default class Movie extends Component {
             {rowHasChanged: (r1, r2) => r1.id !== r2.id});
         this.state = {
             dataSource: ds.cloneWithRows([]), 
-            searchText: ''
+            searchText: '', 
+            refreshing: false
         };
     }
 
@@ -92,7 +93,12 @@ export default class Movie extends Component {
     }
 
     _onRefresh() {
-        this.getMoviesFromApiAsync();
+        this.setState({
+            refreshing: true
+        })
+        this.getMoviesFromApiAsync().then(() => {
+            this.setState({ refreshing: false });
+        });
     }
 
     renderHeader(){
@@ -151,9 +157,9 @@ export default class Movie extends Component {
                     renderRow={this.renderMovieCell.bind(this)}
                     renderFooter={this.renderFooter}
                     onEndReached={this._onEndReached}
-                    RefreshControl={
+                    refreshControl={
                         <RefreshControl
-                            refreshing={false}
+                            refreshing={this.state.refreshing}
                             onRefreah={() => this._onRefresh.bind(this)}
                         />
                     }
