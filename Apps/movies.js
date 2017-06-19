@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 var MovieDetailView = require('./MovieDetailView');
-
+let _movieList = [];
 export default class Movie extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +24,9 @@ export default class Movie extends Component {
         this.state = {
             dataSource: ds.cloneWithRows([]), 
             searchText: '', 
-            refreshing: false
+            refreshing: false, 
+            isFirstPage: true, 
+            currentPage: 1
         };
     }
 
@@ -33,12 +35,19 @@ export default class Movie extends Component {
     }
 
     getMoviesFromApiAsync() {
+        if (this.state.isFirstPage) {
+            _movieList = [];
+        }
+
         return fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed')
         .then((response) => response.json())
         .then((responseJson) => {
+            _movieList = _movieList.concat(responseJson.results)
             console.log(responseJson);
             this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(responseJson.results)
+                dataSource: this.state.dataSource.cloneWithRows(_movieList),
+                isFirstPage: false,
+                currentPage: this.state.currentPage + 1
             })
         })
         .catch((error) => {
@@ -79,9 +88,7 @@ export default class Movie extends Component {
     }
 
     _onEndReached = () => {
-        if (this.state.dataSource.length >= 1){
-            alert("Ahah, onEndReached fired !!!")
-        } 
+        this.getMoviesFromApiAsync()
     }
 
     renderFooter(){
@@ -94,7 +101,8 @@ export default class Movie extends Component {
 
     _onRefresh() {
         this.setState({
-            refreshing: true
+            refreshing: true, 
+            isFirstPage: true
         })
         this.getMoviesFromApiAsync().then(() => {
             this.setState({ refreshing: false });
