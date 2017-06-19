@@ -10,49 +10,28 @@ import {
   StyleSheet,
   Text,
   View, 
-  TabBarIOS, NavigatorIOS
+  Image,
+  NavigatorIOS
 } from 'react-native';
 
+import { StackNavigator, DrawerConfig, TabNavigator } from 'react-navigation';
 import Movies from "./movies.js";
-
-export default class StarterTabBarIOS extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {selectedTab: 'tabNowPlaying'};
-  }
-
-  setTab(tabId) {
-    this.setState({selectedTab: tabId});
-  }
-
-  render() {
-    return (
-      <TabBarIOS>
-        <TabBarIOS.Item
-          systemIcon="recents"
-          selected={this.state.selectedTab === 'tabNowPlaying'}
-          onPress={() => this.setTab('tabNowPlaying')}>
-          
-          <TabNowPlaying/>
-        </TabBarIOS.Item>
-
-        <TabBarIOS.Item
-          systemIcon="top-rated"
-          selected={this.state.selectedTab === 'tabTopRated'}
-          onPress={() => this.setTab('tabTopRated')}>
-
-          <TabTopRated/>
-        </TabBarIOS.Item>
-      </TabBarIOS>
-    );
-  }
-}
+import TopRatedMovies from "./TopRatedMovies.js";
 
 /**
  * Now Playing Tab
  */
 class TabNowPlaying extends React.Component {
+  static navigationOptions = {
+    title: "Now Playing",
+    tabBarIcon: () => (
+      <Image
+        style={[styles.tabBarIcon]}
+        source={require('./TabBarIcon/play-icon.png')}
+      />
+    )
+  }
+  
   render() {
     return (
       <NavigatorIOS
@@ -71,22 +50,40 @@ class TabNowPlaying extends React.Component {
  * Top Rated Tab
  */
 class TabTopRated extends React.Component {
+  static navigationOptions = {
+    title: "Top Rated",
+    tabBarIcon: () => (
+      <Image
+        style={[styles.tabBarIcon]}
+        source={require('./TabBarIcon/top-rated.png')}
+      />
+    )
+  }
   render() {
     return (
-      <NavigatorIOS
-          initialRoute={{
-            title: 'Flickr',
-            component: Movies, 
-            barTintColor: 'orange'
-          }}
-          style={{flex: 1}}
-        /> 
+      <TopRatedMovies />
     );
   }
 }
 
-var styles = StyleSheet.create({
-  
-});
+const tabConfig = {
+  tabBarOptions: {
+    activeTintColor: "black",
+    activeBackgroundColor: "orange",
+  }
+}
 
-AppRegistry.registerComponent('StarterTabBarIOS', () => StarterTabBarIOS);
+const styles = StyleSheet.create({
+  tabBarIcon: {
+    width: 29,
+    height: 29,
+  }
+})
+const AppNavigator = TabNavigator({
+  Playing: { screen: TabNowPlaying },
+  TopRated: { screen: TabTopRated }
+}, tabConfig)
+
+export default AppNavigator
+
+AppRegistry.registerComponent('AppNavigator', () => AppNavigator);

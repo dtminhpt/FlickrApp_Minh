@@ -14,7 +14,7 @@ import {
   TabBarIOS
 } from 'react-native';
 
-import StarterTabBarIOS from "./Apps/TabBarIOS1.js";
+import AppNavigator from "./Apps/TabBarIOS1.js";
 
 export default class FlickrApp extends Component {
    constructor() {
@@ -26,7 +26,7 @@ export default class FlickrApp extends Component {
 
   render() {
     return (
-      <StarterTabBarIOS/>
+      <AppNavigator/>
     );
   }
 }
